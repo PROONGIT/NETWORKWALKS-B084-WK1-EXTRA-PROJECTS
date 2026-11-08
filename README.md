@@ -31,7 +31,7 @@ This is a Security Operations Center (SOC) project subdivided in 6 wireshark-lab
 
 As a SOC analyst in this project, we will investigate 6 live labs. Each lab allows to capture network packets using Wireshark.
 
-We will put into action skills such as Network analysis, Packet inspection, Protocol analysis, Protocol Hierarchy, VoIP, Security mindset, Critical and Analytical thinking, to identify an attacker, rebuid a conversation and read what was sent, find hidden data, usernames, passwords, analyze a VoIP call paquets, play back the call and identify the scammer.
+We will put into action skills such as Network analysis, Packet inspection, Protocol analysis, Protocol Hierarchy, VoIP, Security mindset, Critical and Analytical thinking, to identify an attacker, follow TCP Stream, rebuid a conversation and read what was sent, find hidden data, usernames, passwords, analyze a VoIP call paquets, play back the call and identify the scammer.
 
 ---
 
@@ -40,30 +40,34 @@ We will put into action skills such as Network analysis, Packet inspection, Prot
 
 The main objectives of this project are to:
 
-- Install and configure VirtualBox.
-- Install/import Kali Linux as a virtual machine.
-- Create a private NAT Network for the cybersecurity lab.
-- Configure network connectivity for Kali Linux.
-- Assign a consistent IP address to the Kali VM.
-- Verify network connectivity and DNS resolution.
-- Take a clean VM snapshot for recovery.
-- Document the complete setup process.
-- Prepare the environment for future cybersecurity projects.
+- To identify the Attacker's IP
+- Follow TCP Stream
+- Rebuid a conversation and read what was sent
+- Find the hidden data
+- Find usernames and passwords sent in clear text over HTTP
+- Spot the repeated login attempts and find who is guessing passwords (Brut Force Attacker)
+- Investigate the capture, play the call and identify the scammer (VoIP call scammer)
 
 ---
 
 ## 🛡️ Purpose of the Lab
 
-The lab provides an isolated and controlled environment for cybersecurity learning and authorized security testing.
+The project provides isolated and controlled environment through the 6 wireshark-labs for Network security learning, SOC skills gaining and authorized Network analysis practices.
 
-It can be used for activities such as:
+It helps gain skills through practical activities :
 
-- Network reconnaissance
-- Port scanning
-- Vulnerability assessment
-- Packet analysis
-- Web security testing
-- Exploitation practice
+- Network security
+- Wireshark tools
+- Packet inspection and analysis
+- Protocol Hierarchy
+- Protocol analysis
+- Follow TCP Stream
+- VoIP calls
+- Intrusion Detection/Prevention (IDS/IPS)
+- Digital Forensics
+- Cyber Threat Intelligence (Threat Hunting/Detection/Attribution)
+- Critical and Analytical thinking
+- Security mindset
 - Security-tool experimentation
 
 ---
