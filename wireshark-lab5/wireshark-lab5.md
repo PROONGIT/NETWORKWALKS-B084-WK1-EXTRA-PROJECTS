@@ -93,209 +93,95 @@ All the 6 labs are based on this topology diagram.
 
 ## Scenario
 
-You are a SOC analyst. A staff member has reported unusual traffic to your company’s web server. Capture the
-packets and analyze them in Wireshark. Find out what type of attack this is and what the attacker’s IP address is.
+You are a SOC analyst. One of the pages on the company intranet has a hidden note inside. Find the page and the hidden data.
 
 ---
 
 ## Task 1. Capture the traffic
 
-I signed in with the username "Student" and password "networkwalks", launched Wireshark from the desktop, then double-click the WiFi interface, traffic packets are captured. The status bar shows Packets: 309.
+I signed in with the username "Student" and password "networkwalks", launched Wireshark from the desktop, then double-click the WiFi interface, traffic packets are captured. The status bar shows Packets: 282.
 
-**Wireshark captured `309` packets.**
-
----
-
-## Task 2. Show only  the packets that start a TCP connection (only SYN packets)
-
-Establishing a TCP connection typically takes place in three steps, the **three-way handshake**.
-
-TCP Three-Way Handshake
-
-1. SYN
-Connection initiation
-The client requests the establishment of a connection.
-
-2. SYN + ACK
-The server acknowledges receipt and accepts the request.
-
-3. ACK
-The client confirms. The connection is established.
-
-The the first two types of packets: SYN and SYN-ACK are the ones that start a TCP connection at the client and the server sides.
-
-The filter **`tcp.flags.syn == 1`** helps display them. Their number is read from the status bar : **`73`** packets.
-
-To display the packets that start a TCP connection :
-
-````
-tcp.flags.syn == 1
-````
+**Wireshark captured `282` packets.**
 
 ---
 
-![](wireshark-lab3/tcp-connexion-start.png)
+## Task 2. Find the page
 
-**The packets that start a TCP connection are `73` packets.**
-
----
-
-## Task 3. Find the attacker
-
-We remark that one IP address sends a long block of packets, one after another. We got that IP addrerss suspected and deep our investigation about it.
-
-We displayed the SYN requests from the suspected IP address `192.168.10.66` and compared their number to the total number of the SYN requests.
-
-To display all SYN requests :
-
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 0
-````
-
-To display SYN requests from the IP address `192.168.10.66` :
-
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
-````
-
-| Indicator          |	Number |
-|------------------------|-----|
-|Total SYN requests      |	55 |
-| From 192.168.10.66	    | 40 |
-|From other IP addresses |	15 |
-
-**The share of SYN requests from 192.168.10.66 is `72.7 %`** (40 out of 55 requests). 
+We filtered the packets with **`http`** and displayed the web activities. We followed the streams of the pages and observed that the page **`/staff.html`** had a hidden info.
 
 ---
 
-![](wireshark-lab3/attack-details.png)
-
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address 192.168.10.20 on different ports.
-
-**The attacker's IP address is `192.168.10.66`.**
+![](/wireshark-lab5/http-filter.png)
 
 ---
 
-## Task 4. Find the target
+![](/wireshark-lab5/it-note.png)
 
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
-
-**The target's IP address is `192.168.10.20`.**
+**The page with a hidden note is `/staff.htm`.**
 
 ---
 
-## Task 5. Source port
+## Task 3. Where is it hidden
 
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
+We remark that there is a note placed in comments <!-- --> and called "IT note".
 
-**The port number that is the same in every packet is `52311`.**
-
----
-
-## Task 6. Ports probed 
-
-All the 40 SYN requests from 192.168.10.66:52311 targeted 192.168.10.20 on distinct ports.
-
-**The attacker tried `40` different ports on the target.**
+**The hidden note is in `An HTML comment`.** 
 
 ---
 
-## Task 7. Open ports
+## Task 4. Find the stream
 
-An open port answers with a SYN, ACK packet.
+Following the TCP stream related to the "/staff.html" page, we can see above the window **tcp.stream eq 7** and at the bottom of the same window, we read **Stream 7**.
 
-To display open ports on the target 192.168.10.20 : 
-
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 1 && ip.src == 192.168.10.20
-````
+**The stream is the stream number `7`.**
 
 ---
 
-![](wireshark-lab3/open-ports.png)
+## Task 5. The code word
 
-We observe from the "Info" column that the open ports are 22, 80 and 443.
-
-**The expected answer is : `22, 80, 443`.**
+**In the comment, the access code word is `Falcon-9921`.**
 
 ---
 
-## Task 8. Reply for closed ports
+## Task 6. The backup server's IP address
 
-**A closed port answers with a `RST, ACK` packet.**
-
----
-
-## Task 9. Closed ports
-
-A closed port answers with a `RST, ACK` packet.
-
-To display closed ports on the target 192.168.10.20 : 
-
-````
-ip.src == 192.168.10.20 && tcp.flags.reset == 1 && tcp.flags.ack == 1
-````
+**In the comment, the backup server's IP address is `192.168.10.77`.**
 
 ---
 
-![](wireshark-lab3/rst-ack.png)
+## Task 7. The way the text traveled
 
-**We can read from that status bar that `37` ports are closed.**
-
-*40 ports were tried and 3 are open, so 37 ports are closed.*
+**The way the text traveled is : `Server to client`.**
 
 ---
 
-## Task 10. Attack type
+## Task 8. Status code
 
-In a typical TCP SYN scan, the behavior is generally as follow :
+We can read "HTTP/1.1 200 OK".
 
-1. The attacker sends a SYN packet.
-
-2. The target responds with a SYN-ACK if the port is open.
-
-3. The initiator sends an RST packet to abort the connection without completing the three-way handshake.
-
-If the port is closed, the target responds with an RST-ACK, which terminates the connection.
-
-We examined the attacker's behavior following the three SYN-ACK responses from the target on ports 22, 80, and 443.
-
-To display the RST packets sent by the attacker to the target :
-
-````
-ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
-````
+**The HTTP status code sent is `200`.**
 
 ---
 
-![](wireshark-lab3/source-rst.png)
+## Task 9. The downloaded folder
 
-The attacker sent RST packets to the target and interrupted the connexions on open ports.
+The `http` filter revealed a visited page packet having in the "Info" column **GET /download/report.txt**
 
-**Identifying the typee of Attack**
+**The file name is `report.txt`.**
 
-Analysis of the TCP packets captured using Wireshark identifies the IP address `192.168.10.66` as the source of intensive network  activity targeting the machine at `192.168.10.20`.
+---
 
-Specifically, 40 SYN packets were sent from the only port 52311 of `192.168.10.66` to 40 distinct ports of `192.168.10.20` at regular intervals of 12.5 milliseconds. The target machine responded with SYN-ACK packets on ports 22, 80, and 443, indicating that these ports were open. The source machine subsequently sent RST packets, terminating the attempts to establish TCP connections.
+## Task 10.  Who prepared the report?
 
-This behavior is characteristic of a **TCP port scan** known as a "SYN scan" or "TCP half-open scan".
+We followed up the TCP stream related to the downloading packet. 
 
+We read **Prepared by : Nadia**.
 
-| Element | Result |
-|----------|---------|
-| Attacker | 192.168.10.66 |
-| Target | 192.168.10.20 |
-| Identified technique | TCP SYN Scan |
-| Regular interval | 12.5 ms |
-| Number of SYN packets from .66 | 40 |
-| Frequency (packets/second) | 80 |
-| Identified open ports | 22, 80, 443 |
-| Target responses | SYN-ACK |
-| Attacker final behavior | RST |
+---
 
-**Conclusion:** 
+![](/wireshark-lab5/prepared-by.png)
 
-**The attack type is a `Port scan`.** The IP address `192.168.10.66` is identified as the source of the port scan, while `192.168.10.20` is the target machine. This activity (such as nmap -sS) is an active network reconnaissance and mapping technique categorized under **`MITRE ATT&CK T1595`** (Active Scanning).
+**The one who prepared the report is `Nadia`.**
 
 ---
 
