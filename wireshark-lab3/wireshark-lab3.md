@@ -134,7 +134,7 @@ tcp.flags.syn == 1
 
 ---
 
-![](wireshark-lab3/tcp-connexion-start.png)
+![](/wireshark-lab3/tcp-connexion-start.png)
 
 **The packets that start a TCP connection are `73` packets.**
 
@@ -168,7 +168,7 @@ tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
 
 ---
 
-![](wireshark-lab3/attack-details.png)
+![](/wireshark-lab3/attack-details.png)
 
 All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address 192.168.10.20 on different ports.
 
@@ -212,7 +212,7 @@ tcp.flags.syn == 1 && tcp.flags.ack == 1 && ip.src == 192.168.10.20
 
 ---
 
-![](wireshark-lab3/open-ports.png)
+![](/wireshark-lab3/open-ports.png)
 
 We observe from the "Info" column that the open ports are 22, 80 and 443.
 
@@ -238,7 +238,7 @@ ip.src == 192.168.10.20 && tcp.flags.reset == 1 && tcp.flags.ack == 1
 
 ---
 
-![](wireshark-lab3/rst-ack.png)
+![](/wireshark-lab3/rst-ack.png)
 
 **We can read from that status bar that `37` ports are closed.**
 
@@ -268,7 +268,7 @@ ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
 
 ---
 
-![](wireshark-lab3/source-rst.png)
+![](/wireshark-lab3/source-rst.png)
 
 The attacker sent RST packets to the target and interrupted the connexions on open ports.
 
