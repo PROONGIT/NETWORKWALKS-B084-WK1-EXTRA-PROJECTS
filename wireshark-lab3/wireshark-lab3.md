@@ -272,7 +272,9 @@ ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
 
 The attacker sent RST packets to the target and interrupted the connexions on open ports.
 
-**👉Identifying the type of Attack**
+---
+
+### 👉Identifying the type of Attack
 
 Analysis of the TCP packets captured using Wireshark identifies the IP address `192.168.10.66` as the source of intensive network  activity targeting the machine at `192.168.10.20`.
 
@@ -293,7 +295,7 @@ This behavior is characteristic of a **TCP port scan** known as a "SYN scan" or 
 | Target responses | SYN-ACK |
 | Attacker final behavior | RST |
 
-**Conclusion:** 
+### Conclusion:
 
 **The attack type is a `Port scan`.** The IP address `192.168.10.66` is identified as the source of the port scan, while `192.168.10.20` is the target machine. This activity (such as nmap -sS) is an active network reconnaissance and mapping technique categorized under **`MITRE ATT&CK T1595`** (Active Scanning).
 
