@@ -81,4 +81,76 @@ All the 6 labs are based on this topology diagram.
 
 ---
 
-## ⚙️ Wireshark Lab 3 - Identifying the attacker's IP
+# 👁️‍🗨️ Wireshark Lab 3 - Identifying the attacker's IP
+
+## Scenario
+
+You are a SOC analyst. A staff member has reported unusual traffic to your company’s web server. Capture the
+packets and analyze them in Wireshark. Find out what type of attack this is and what the attacker’s IP address is.
+
+---
+
+## Task 1. Capture the traffic
+
+I signed in with the username "Student" and password "networkwalks", launched Wireshark from the desktop, then double-click the WiFi interface, traffic packets are captured. The status bar shows Packets: 309.
+
+**Wireshark captured `309` packets.**
+
+---
+
+## Task 2. Show only  the packets that start a TCP connection (only SYN packets)
+
+Establishing a TCP connection typically takes place in three steps, the **three-way handshake**.
+
+TCP Three-Way Handshake
+
+1. SYN
+Connection initiation
+The client requests the establishment of a connection.
+
+2. SYN + ACK
+The server acknowledges receipt and accepts the request.
+
+3. ACK
+The client confirms. The connection is established.
+
+The the first two types of packets: SYN and SYN-ACK are the ones that start a TCP connection at the client and the server sides.
+
+The filter **`tcp.flags.syn == 1`** helps display them. Their number is read from the status bar : **`73`** packets.
+
+---
+
+## Task 3. Find the attacker
+
+We remark that one IP address sends a long block of packets, one after another. We got that IP addrerss suspected and deep our investigation about it.
+
+We displayed the SYN requests from the suspected IP address `192.168.10.66` and compared their number to the total number of the SYN requests.
+
+To display all SYN requests :
+
+````
+tcp.flags.syn == 1 && tcp.flags.ack == 0
+````
+
+To display SYN requests from the IP address `192.168.10.66` :
+
+````
+tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
+````
+
+| Indicator          |	Number |
+|------------------------|-----|
+|Total SYN requests      |	55 |
+| From 192.168.10.66	    | 40 |
+|From other IP addresses |	15 |
+
+**The share of SYN requests from 192.168.10.66 is `72.7%`** (40 out of 55 requests). 
+
+All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address 192.168.10.20 on different ports.
+
+The attacker's IP address is **`192.168.10.66`**.
+
+---
+
+## Task 4. Find the target
+
