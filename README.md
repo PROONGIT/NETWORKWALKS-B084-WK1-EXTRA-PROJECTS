@@ -71,3 +71,14 @@ It helps gain skills through practical activities :
 - Security-tool experimentation
 
 ---
+
+## 🏗️ Lab Architecture
+
+![](/topology-diagram.png)
+
+
+All the 6 labs are based on this topology diagram.
+
+---
+
+## ⚙️ Wireshark Lab 3 - Identifying the attacker's IP
