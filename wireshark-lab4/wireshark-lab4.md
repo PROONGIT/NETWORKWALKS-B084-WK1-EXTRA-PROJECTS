@@ -133,7 +133,7 @@ tcp.flags.syn == 1 && tcp.port == 5000
 
 ---
 
-![](wireshark-lab4/chat-starter.png)
+![](/wireshark-lab4/chat-starter.png)
 
 **The IP address that started the chat is `192.168.10.45`.**
 
@@ -145,7 +145,7 @@ We clicked on the SYN request packet and we followed the chat with **`Analyze > 
 
 ---
 
-![](wireshark-lab4/stream-number.png)
+![](/wireshark-lab4/stream-number.png)
 
 **The stream number is `5`.**
 
