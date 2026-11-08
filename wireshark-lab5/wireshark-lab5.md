@@ -26,7 +26,7 @@
 
 ## 📌 Project Overview
 
-This is the thirdd part (wireshark-lab5) of a Security Operations Center (SOC) project subdivided in 6 wireshark-lab activities. 
+This is the third part (wireshark-lab5) of a Security Operations Center (SOC) project subdivided in 6 wireshark-lab activities. 
 
 Links to the 6 wireshark-lab activities :
 
