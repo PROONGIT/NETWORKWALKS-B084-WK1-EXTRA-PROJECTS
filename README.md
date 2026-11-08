@@ -156,6 +156,8 @@ tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
 
 **The share of SYN requests from 192.168.10.66 is `72.7%`** (40 out of 55 requests). 
 
+![](wireshark-lab3/attack-details.png)
+
 All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address 192.168.10.20 on different ports.
 
 **The attacker's IP address is `192.168.10.66`.**
