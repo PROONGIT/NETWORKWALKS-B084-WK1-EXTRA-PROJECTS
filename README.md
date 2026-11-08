@@ -118,6 +118,14 @@ The the first two types of packets: SYN and SYN-ACK are the ones that start a TC
 
 The filter **`tcp.flags.syn == 1`** helps display them. Their number is read from the status bar : **`73`** packets.
 
+To display the packets that start a TCP connection :
+
+````
+tcp.flags.syn == 1
+````
+
+**The packets that start a TCP connection are `73` packets.**
+
 ---
 
 ## Task 3. Find the attacker
@@ -148,7 +156,7 @@ tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
 
 All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address 192.168.10.20 on different ports.
 
-The attacker's IP address is **`192.168.10.66`**.
+**The attacker's IP address is `192.168.10.66`.**
 
 ---
 
