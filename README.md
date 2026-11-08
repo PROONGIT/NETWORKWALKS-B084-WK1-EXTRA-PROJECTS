@@ -154,7 +154,7 @@ tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
 | From 192.168.10.66	    | 40 |
 |From other IP addresses |	15 |
 
-**The share of SYN requests from 192.168.10.66 is `72.7%`** (40 out of 55 requests). 
+**The share of SYN requests from 192.168.10.66 is `72.7 %`** (40 out of 55 requests). 
 
 ---
 
@@ -168,3 +168,115 @@ All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP addr
 
 ## Task 4. Find the target
 
+All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
+
+**The target's IP address is `192.168.10.20`.**
+
+---
+
+## Task 5. Source port
+
+All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
+
+**The port number that is the same in every packet is `52311`.**
+
+---
+
+## Task 6. Ports probed 
+
+All the 40 SYN requests from 192.168.10.66:52311 targeted 192.168.10.20 on distinct ports.
+
+**The attacker tried `40` different ports on the target.**
+
+---
+
+## Task 7. Open ports
+
+An open port answers with a SYN, ACK packet.
+
+To display open ports on the target 192.168.10.20 : 
+
+````
+tcp.flags.syn == 1 && tcp.flags.ack == 1 && ip.src == 192.168.10.20
+````
+
+![](wireshark-lab3/open-ports.png)
+
+We observe from the "Info" column that the open ports are 22, 80 and 443.
+
+**The expected answer is : `22, 80, 443`.**
+
+---
+
+## Task 8. Reply for closed ports
+
+**A closed port answers with a `RST, ACK` packet.**
+
+---
+
+## Task 9. Closed ports
+
+A closed port answers with a `RST, ACK` packet.
+
+To display closed ports on the target 192.168.10.20 : 
+
+````
+ip.src == 192.168.10.20 && tcp.flags.reset == 1 && tcp.flags.ack == 1
+````
+
+![](wireshark-lab3/rst-ack.png)
+
+**We can read from that status bar that `37` ports are closed.**
+
+*40 ports were tried and 3 are open, so 37 ports are closed.*
+
+---
+
+## Task 10. Attack type
+
+In a typical TCP SYN scan, the behavior is generally as follow :
+
+1. The attacker sends a SYN packet.
+
+2. The target responds with a SYN-ACK if the port is open.
+
+3. The initiator sends an RST packet to abort the connection without completing the three-way handshake.
+
+If the port is closed, the target responds with an RST-ACK, which terminates the connection.
+
+We examined the attacker's behavior following the three SYN-ACK responses from the target on ports 22, 80, and 443.
+
+To display the RST packets sent by the attacker to the target :
+
+````
+ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
+````
+
+![](wireshark-lab3/source-rst.png)
+
+The attacker sent RST packets to the target and interrupted the connexions on open ports.
+
+**Identifying the typee of Attack**
+
+Analysis of the TCP packets captured using Wireshark identifies the IP address `192.168.10.66` as the source of intensive network  activity targeting the machine at `192.168.10.20`.
+
+Specifically, 40 SYN packets were sent from the only port 52311 of `192.168.10.66` to 40 distinct ports of `192.168.10.20` at regular intervals of 12.5 milliseconds. The target machine responded with SYN-ACK packets on ports 22, 80, and 443, indicating that these ports were open. The source machine subsequently sent RST packets, terminating the attempts to establish TCP connections.
+
+This behavior is characteristic of a **TCP port scan** known as a "SYN scan" or "TCP half-open scan".
+
+
+| Element | Result |
+|----------|---------|
+| Attacker | 192.168.10.66 |
+| Target | 192.168.10.20 |
+| Identified technique | TCP SYN Scan |
+| Regular interval | 12.5 ms |
+| Number of SYN packets from .66 | 40 |
+| Frequency (packets/second) | 80 |
+| Identified open ports | 22, 80, 443 |
+| Target responses | SYN-ACK |
+| Attacker final behavior | RST |
+
+**Conclusion:** 
+
+**The attack type is a `Port scan`.** The IP address `192.168.10.66` is identified as the source of the port scan, while `192.168.10.20` is the target machine. This activity (such as nmap -sS) is an active network reconnaissance and mapping technique categorized under **`MITRE ATT&CK T1595`** (Active Scanning).
