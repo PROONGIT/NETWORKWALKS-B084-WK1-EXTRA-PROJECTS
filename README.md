@@ -124,6 +124,8 @@ To display the packets that start a TCP connection :
 tcp.flags.syn == 1
 ````
 
+![](wireshark-lab3/tcp-connexion-start.png)
+
 **The packets that start a TCP connection are `73` packets.**
 
 ---
