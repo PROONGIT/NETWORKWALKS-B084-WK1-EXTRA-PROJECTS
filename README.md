@@ -200,6 +200,8 @@ To display open ports on the target 192.168.10.20 :
 tcp.flags.syn == 1 && tcp.flags.ack == 1 && ip.src == 192.168.10.20
 ````
 
+---
+
 ![](wireshark-lab3/open-ports.png)
 
 We observe from the "Info" column that the open ports are 22, 80 and 443.
@@ -223,6 +225,8 @@ To display closed ports on the target 192.168.10.20 :
 ````
 ip.src == 192.168.10.20 && tcp.flags.reset == 1 && tcp.flags.ack == 1
 ````
+
+---
 
 ![](wireshark-lab3/rst-ack.png)
 
@@ -251,6 +255,8 @@ To display the RST packets sent by the attacker to the target :
 ````
 ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
 ````
+
+---
 
 ![](wireshark-lab3/source-rst.png)
 
