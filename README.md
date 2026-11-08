@@ -28,6 +28,14 @@
 
 This is a Security Operations Center (SOC) project subdivided in 6 wireshark-lab activities. 
 
+Links to the 6 wireshark-lab activities :
+
+- **SOC LAB 1 :** [Wireshark-lab3](wireshark-lab3/wireshark-lab3.md)
+- **SOC LAB 2 :** [Wireshark-lab4](wireshark-lab4/wireshark-lab4.md)
+- **SOC LAB 3 :** [Wireshark-lab5](wireshark-lab5/wireshark-lab5.md)
+- **SOC LAB 4 :** [Wireshark-lab6](wireshark-lab6/wireshark-lab6.md)
+- **SOC LAB 5 :** [Wireshark-lab7](wireshark-lab7/wireshark-lab7.md)
+- **SOC LAB 6 :** [Wireshark-lab8](wireshark-lab8/wireshark-lab8.md)
 
 As a SOC analyst in this project, we will investigate 6 live labs. Each lab allows to capture network packets using Wireshark.
 
