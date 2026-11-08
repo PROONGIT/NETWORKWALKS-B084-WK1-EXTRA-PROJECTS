@@ -272,7 +272,7 @@ ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
 
 The attacker sent RST packets to the target and interrupted the connexions on open ports.
 
-**Identifying the typee of Attack**
+**👉Identifying the type of Attack**
 
 Analysis of the TCP packets captured using Wireshark identifies the IP address `192.168.10.66` as the source of intensive network  activity targeting the machine at `192.168.10.20`.
 
@@ -301,7 +301,7 @@ This behavior is characteristic of a **TCP port scan** known as a "SYN scan" or 
 
 # 💡 What I practiced
 
-Through this project, I identified a suspicious activity in the network traffic, investigated to detect the attacker's IP address, the target's IP address, established a table of observations and facts that confirm the effectiveness of the attack  and identified the attack type and its operational technique.
+Through this project, I identified a suspicious activity in the network traffic, investigated to detect the attacker's IP address, the target's IP address, established a table of observations and facts that confirm the effectiveness of the attack and identified the attack type and its operational technique.
 
 I demonstrated Security Operations Center (SOC) Analysis skills.
 
