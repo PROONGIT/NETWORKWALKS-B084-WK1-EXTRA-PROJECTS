@@ -31,7 +31,7 @@ This is the first part (wireshark-lab3) of a Security Operations Center (SOC) pr
 Links to the 6 wireshark-lab activities :
 
 - **SOC LAB 1 :** [Wireshark-lab3](wireshark-lab3/wireshark-lab3.md)
-- **SOC LAB 2 :** [Wireshark-lab4](wireshark-lab4/wireshark-lab4.md)
+- **SOC LAB 2 :** [Wireshark-lab4](https://github.com/PROONGIT/NETWORKWALKS-B084-WK1-EXTRA-PROJECTS/blob/7a9ac0d3c4011f74a971dada7633427f1ced3548/wireshark-lab4/wireshark-lab4.md)
 - **SOC LAB 3 :** [Wireshark-lab5](wireshark-lab5/wireshark-lab5.md)
 - **SOC LAB 4 :** [Wireshark-lab6](wireshark-lab6/wireshark-lab6.md)
 - **SOC LAB 5 :** [Wireshark-lab7](wireshark-lab7/wireshark-lab7.md)
