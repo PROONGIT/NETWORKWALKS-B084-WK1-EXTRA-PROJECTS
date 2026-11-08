@@ -134,7 +134,7 @@ tcp.flags.syn == 1
 
 ---
 
-![](wireshark-lab3/tcp-connexion-start.png)
+![](/wireshark-lab3/tcp-connexion-start.png)
 
 **The packets that start a TCP connection are `73` packets.**
 
@@ -168,7 +168,7 @@ tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
 
 ---
 
-![](wireshark-lab3/attack-details.png)
+![](/wireshark-lab3/attack-details.png)
 
 All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address 192.168.10.20 on different ports.
 
@@ -212,7 +212,7 @@ tcp.flags.syn == 1 && tcp.flags.ack == 1 && ip.src == 192.168.10.20
 
 ---
 
-![](wireshark-lab3/open-ports.png)
+![](/wireshark-lab3/open-ports.png)
 
 We observe from the "Info" column that the open ports are 22, 80 and 443.
 
@@ -238,7 +238,7 @@ ip.src == 192.168.10.20 && tcp.flags.reset == 1 && tcp.flags.ack == 1
 
 ---
 
-![](wireshark-lab3/rst-ack.png)
+![](/wireshark-lab3/rst-ack.png)
 
 **We can read from that status bar that `37` ports are closed.**
 
@@ -268,11 +268,13 @@ ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
 
 ---
 
-![](wireshark-lab3/source-rst.png)
+![](/wireshark-lab3/source-rst.png)
 
 The attacker sent RST packets to the target and interrupted the connexions on open ports.
 
-**Identifying the typee of Attack**
+---
+
+### 👉Identifying the type of Attack
 
 Analysis of the TCP packets captured using Wireshark identifies the IP address `192.168.10.66` as the source of intensive network  activity targeting the machine at `192.168.10.20`.
 
@@ -293,7 +295,7 @@ This behavior is characteristic of a **TCP port scan** known as a "SYN scan" or 
 | Target responses | SYN-ACK |
 | Attacker final behavior | RST |
 
-**Conclusion:** 
+### Conclusion:
 
 **The attack type is a `Port scan`.** The IP address `192.168.10.66` is identified as the source of the port scan, while `192.168.10.20` is the target machine. This activity (such as nmap -sS) is an active network reconnaissance and mapping technique categorized under **`MITRE ATT&CK T1595`** (Active Scanning).
 
@@ -301,7 +303,7 @@ This behavior is characteristic of a **TCP port scan** known as a "SYN scan" or 
 
 # 💡 What I practiced
 
-Through this project, I identified a suspicious activity in the network traffic, investigated to detect the attacker's IP address, the target's IP address, established a table of observations and facts that confirm the effectiveness of the attack  and identified the attack type and its operational technique.
+Through this project, I identified a suspicious activity in the network traffic, investigated to detect the attacker's IP address, the target's IP address, established a table of observations and facts that confirm the effectiveness of the attack and identified the attack type and its operational technique.
 
 I demonstrated Security Operations Center (SOC) Analysis skills.
 
