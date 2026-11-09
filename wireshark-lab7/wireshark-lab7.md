@@ -237,7 +237,7 @@ We observed an attack where many login attempts on one target failed until one l
 
 # 💡 What I practiced
 
-Through this project, I identified a suspicious activity in the network traffic, investigated to detect the attacker's IP address, the target's IP address, established a table of observations and facts that confirm the effectiveness of the attack  and identified the attack type and its operational technique.
+Through this project, I identified a suspicious activity in the network traffic, investigated to detect the attacker's IP address, the target's IP address, established a set of observations and facts that confirm the effectiveness of the attack and identified the attack type and its operational technique.
 
 I demonstrated Security Operations Center (SOC) Analysis skills.
 
@@ -253,33 +253,37 @@ I have demonstrated my ability to proficiently use Wireshark tools for **network
 
 ### 3. Packet inspection and analysis
 
-I inspected and analyzed packets and detected traffic anomalies. I also practiced **Protocol analysis**, especialy the TCP **Three-Way Handshake**.
+I inspected and analyzed packets and detected suspicious activities on a FTP server. I also practiced **Protocol analysis**, especialy the **FTP protocol**.
 
-### 4. Intrusion Detection/Prevention (IDS/IPS)
+### 4. Network sniffing
 
-I detected the intrusionn of the attacker in the network, the source address and the nature of the attack. Based on those elements, I can respond to that incident by blocking the attacker's IP address and closing all ports that are not in service. I can also implement measures to prevent future intrusions.
+I analyzed the network traffic, detected malicious activities and get critical data such as username, passwords and IP addresses.
 
-### 5. Digital Forensics
+### 5. Intrusion Detection/Prevention (IDS/IPS)
+
+I detected the intrusionn of the attacker in the network, the source address and the nature of the attack. Based on those elements, I can respond to that incident by changing the login credentials, blocking the attacker's IP address and closing all ports that are not in service. I can also implement other security measures to prevent future intrusions.
+
+### 6. Digital Forensics
 
 I established the procedure and the technique of the attack. I identified the source and the type of the attack. So I can respond to it and implement prevention measures.
 
-### 6. Cyber Threat Intelligence 
+### 7. Cyber Threat Intelligence 
 
-The intrusion of the attacker in the network and the port scan activity constitute threats for the network security. By analyzing the network and detecting earlier the port scan activity, I demonstrated Cyber Threat Intelligence skills, including Threat Hunting, Threat Detection and Threat Attribution.
+The intrusion of the attacker in the network and the force brute attack activity constitute threats for the network security. By analyzing the network and detecting earlier the force brute attack, I demonstrated Cyber Threat Intelligence skills, including Threat Hunting, Threat Detection and Threat Attribution.
 
-### 7. Critical and Analytical thinking
+### 8. Critical and Analytical thinking
 
 I demonstrated Critical and Analytical thinking by putting together many observations and details to build a strong argumentation that clearly establish the effectiveness of an occuring attack, its source, target and identify the attack type.
 
-### 8. Security-tool experimentation
+### 9. Security-tool experimentation
 
 Using different command codes to filter and analyze packets and protocoles with Wireshark is a practical way to experiment and master security tools.
 
-### 9. Security mindset
+### 10. Security mindset
 
-A security mindset in cybersecurity is a proactive, analytical way of thinking. I demonstrated that mindset throughout this project by using curiosity and setting up a proper strategy to analyze traffic, identify potential activities and establish their effectiveness.
+A security mindset in cybersecurity is a proactive, analytical way of thinking. I demonstrated that mindset throughout this project by using curiosity and setting up a proper strategy to analyze traffic, identify suspicious activities and establish their effectiveness.
 
-### 10. Documentation
+### 11. Documentation
 
 I documented commands / codes, screenshots, tasks and solutions. That is an important part of a professional cybersecurity project.
 
