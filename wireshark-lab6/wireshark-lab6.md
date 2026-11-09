@@ -93,209 +93,113 @@ All the 6 labs are based on this topology diagram.
 
 ## Scenario
 
-You are a SOC analyst. A staff member has reported unusual traffic to your company’s web server. Capture the
-packets and analyze them in Wireshark. Find out what type of attack this is and what the attacker’s IP address is.
+ An old staff portal still runs on plain HTTP. Capture the traffic and find out what a person can read from a sign-in that is not encrypted.
 
 ---
 
 ## Task 1. Capture the traffic
 
-I signed in with the username "Student" and password "networkwalks", launched Wireshark from the desktop, then double-click the WiFi interface, traffic packets are captured. The status bar shows Packets: 309.
+I signed in with the username "Student" and password "networkwalks", launched Wireshark from the desktop, then double-click the WiFi interface, traffic packets are captured. The status bar shows Packets: 255.
 
-**Wireshark captured `309` packets.**
-
----
-
-## Task 2. Show only  the packets that start a TCP connection (only SYN packets)
-
-Establishing a TCP connection typically takes place in three steps, the **three-way handshake**.
-
-TCP Three-Way Handshake
-
-1. SYN
-Connection initiation
-The client requests the establishment of a connection.
-
-2. SYN + ACK
-The server acknowledges receipt and accepts the request.
-
-3. ACK
-The client confirms. The connection is established.
-
-The the first two types of packets: SYN and SYN-ACK are the ones that start a TCP connection at the client and the server sides.
-
-The filter **`tcp.flags.syn == 1`** helps display them. Their number is read from the status bar : **`73`** packets.
-
-To display the packets that start a TCP connection :
-
-````
-tcp.flags.syn == 1
-````
+**Wireshark captured `255` packets.**
 
 ---
 
-![](wireshark-lab3/tcp-connexion-start.png)
+## Task 2. Which protocol 
 
-**The packets that start a TCP connection are `73` packets.**
+The filter with **`http`** helped display HTTP related activities. 
 
----
-
-## Task 3. Find the attacker
-
-We remark that one IP address sends a long block of packets, one after another. We got that IP addrerss suspected and deep our investigation about it.
-
-We displayed the SYN requests from the suspected IP address `192.168.10.66` and compared their number to the total number of the SYN requests.
-
-To display all SYN requests :
-
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 0
-````
-
-To display SYN requests from the IP address `192.168.10.66` :
-
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
-````
-
-| Indicator          |	Number |
-|------------------------|-----|
-|Total SYN requests      |	55 |
-| From 192.168.10.66	    | 40 |
-|From other IP addresses |	15 |
-
-**The share of SYN requests from 192.168.10.66 is `72.7 %`** (40 out of 55 requests). 
+We can read in the "Info" column the successful login "POST /login" and the used protocol : **HTTP**.
 
 ---
 
-![](wireshark-lab3/attack-details.png)
+![](/wireshark-lab6/login-protocol.png)
 
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address 192.168.10.20 on different ports.
-
-**The attacker's IP address is `192.168.10.66`.**
+**The protocol that carried the sign-in is `HTTP`.**
 
 ---
 
-## Task 4. Find the target
+## Task 3. The used method
 
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
-
-**The target's IP address is `192.168.10.20`.**
+We followed up the TCP stream of the login packet.
 
 ---
 
-## Task 5. Source port
+![](/wireshark-lab6/login-method.png)
 
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
-
-**The port number that is the same in every packet is `52311`.**
+**The HTTP method used by the sign-in is `POST`.**
 
 ---
 
-## Task 6. Ports probed 
+## Task 4. The login page
 
-All the 40 SYN requests from 192.168.10.66:52311 targeted 192.168.10.20 on distinct ports.
+The Follow TCP stream shows **POST /login**.
 
-**The attacker tried `40` different ports on the target.**
-
----
-
-## Task 7. Open ports
-
-An open port answers with a SYN, ACK packet.
-
-To display open ports on the target 192.168.10.20 : 
-
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 1 && ip.src == 192.168.10.20
-````
+**The form sent the sign-in to the page path `/login`.**
 
 ---
 
-![](wireshark-lab3/open-ports.png)
+## Task 5. The PC that signed in
 
-We observe from the "Info" column that the open ports are 22, 80 and 443.
+The source IP address related to the login is **192.168.10.45**.
 
-**The expected answer is : `22, 80, 443`.**
-
----
-
-## Task 8. Reply for closed ports
-
-**A closed port answers with a `RST, ACK` packet.**
+**The PC that sent the sign-in is `192.168.10.45`.**
 
 ---
 
-## Task 9. Closed ports
+## Task 6. The number of attempts
 
-A closed port answers with a `RST, ACK` packet.
-
-To display closed ports on the target 192.168.10.20 : 
-
-````
-ip.src == 192.168.10.20 && tcp.flags.reset == 1 && tcp.flags.ack == 1
-````
+The Follow TCP stream window shows 2 login attempts.
 
 ---
 
-![](wireshark-lab3/rst-ack.png)
+![](/wireshark-lab6/attempts.png)
 
-**We can read from that status bar that `37` ports are closed.**
-
-*40 ports were tried and 3 are open, so 37 ports are closed.*
+**The number login attempts is `2`.**
 
 ---
 
-## Task 10. Attack type
+## Task 7. The username
 
-In a typical TCP SYN scan, the behavior is generally as follow :
-
-1. The attacker sends a SYN packet.
-
-2. The target responds with a SYN-ACK if the port is open.
-
-3. The initiator sends an RST packet to abort the connection without completing the three-way handshake.
-
-If the port is closed, the target responds with an RST-ACK, which terminates the connection.
-
-We examined the attacker's behavior following the three SYN-ACK responses from the target on ports 22, 80, and 443.
-
-To display the RST packets sent by the attacker to the target :
-
-````
-ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
-````
+In the login packet's **HTML Form URL Encoded** details, we read the credentials.
 
 ---
 
-![](wireshark-lab3/source-rst.png)
+![](/wireshark-lab6/login-protocol.png)
 
-The attacker sent RST packets to the target and interrupted the connexions on open ports.
+**The username is `farhan.k`.**
 
-**Identifying the typee of Attack**
+---
 
-Analysis of the TCP packets captured using Wireshark identifies the IP address `192.168.10.66` as the source of intensive network  activity targeting the machine at `192.168.10.20`.
+## Task 8. The password
 
-Specifically, 40 SYN packets were sent from the only port 52311 of `192.168.10.66` to 40 distinct ports of `192.168.10.20` at regular intervals of 12.5 milliseconds. The target machine responded with SYN-ACK packets on ports 22, 80, and 443, indicating that these ports were open. The source machine subsequently sent RST packets, terminating the attempts to establish TCP connections.
+The Follow TCP stream window shows the 2 login attempts.
 
-This behavior is characteristic of a **TCP port scan** known as a "SYN scan" or "TCP half-open scan".
+---
 
+![](/wireshark-lab6/attempts.png)
 
-| Element | Result |
-|----------|---------|
-| Attacker | 192.168.10.66 |
-| Target | 192.168.10.20 |
-| Identified technique | TCP SYN Scan |
-| Regular interval | 12.5 ms |
-| Number of SYN packets from .66 | 40 |
-| Frequency (packets/second) | 80 |
-| Identified open ports | 22, 80, 443 |
-| Target responses | SYN-ACK |
-| Attacker final behavior | RST |
+**The second password is `Mango#2026`.**
 
-**Conclusion:** 
+---
 
-**The attack type is a `Port scan`.** The IP address `192.168.10.66` is identified as the source of the port scan, while `192.168.10.20` is the target machine. This activity (such as nmap -sS) is an active network reconnaissance and mapping technique categorized under **`MITRE ATT&CK T1595`** (Active Scanning).
+## Task 9. Packet details line
+
+In the login packet's **HTML Form URL Encoded** details, we read the credentials.
+
+---
+
+![](/wireshark-lab6/login-protocol.png)
+
+**The line in the packet details showing the typed username and password is `HTML Form URL Encoded`.**
+
+---
+
+## Task 10.  Fix and stop credentials showing in the packets
+
+The company can stop people from reading passwords like this by using **HTTPS**.
+
+**The solution is `Use HTTPS`.** 
 
 ---
 
