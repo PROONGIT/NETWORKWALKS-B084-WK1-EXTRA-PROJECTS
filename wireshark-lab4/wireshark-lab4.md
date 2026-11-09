@@ -209,37 +209,33 @@ Using Wireshark to capture and analyze network packets helps monitor the network
 
 ### 2. Wireshark tools
 
-I have demonstrated my ability to proficiently use Wireshark tools for **network analysis**, including packet capture and display filtering using the appropriate codes and syntax.
+I have demonstrated my ability to proficiently use Wireshark tools for **network analysis**, including packet capture, display filtering using the appropriate codes and syntax and TCP Stream following, rebuilding a conversation and read what was sent. 
 
 ### 3. Packet inspection and analysis
 
-I inspected and analyzed packets and detected traffic anomalies. I also practiced **Protocol analysis**, especialy the TCP **Three-Way Handshake**.
+I inspected and analyzed packets and detected an non protected chat. I also practiced **Packet analysis**, especialy **TCP Stream** following to rebuild a conversation and get the sent messages.
 
-### 4. Intrusion Detection/Prevention (IDS/IPS)
+### 4. Network sniffing
 
-I detected the intrusionn of the attacker in the network, the source address and the nature of the attack. Based on those elements, I can respond to that incident by blocking the attacker's IP address and closing all ports that are not in service. I can also implement measures to prevent future intrusions.
+I analyzed the network traffic, detected an unsecure chat and get in plain text credentials and a wi-fi password.
 
-### 5. Digital Forensics
+### 5. Cyber Threat Intelligence 
 
-I established the procedure and the technique of the attack. I identified the source and the type of the attack. So I can respond to it and implement prevention measures.
+The non protected chat constitutes threats for the network security. By analyzing the network and detecting earlier the unsecure chat activity, I demonstrated Cyber Threat Intelligence skills, including Threat Hunting and Threat Detection.
 
-### 6. Cyber Threat Intelligence 
+### 6. Critical and Analytical thinking
 
-The intrusion of the attacker in the network and the port scan activity constitute threats for the network security. By analyzing the network and detecting earlier the port scan activity, I demonstrated Cyber Threat Intelligence skills, including Threat Hunting, Threat Detection and Threat Attribution.
+I demonstrated Critical and Analytical thinking by implementing an effective procedure to detect the unsecure chat, rebuild the conversation and get the sent messages in plain text.
 
-### 7. Critical and Analytical thinking
-
-I demonstrated Critical and Analytical thinking by putting together many observations and details to build a strong argumentation that clearly establish the effectiveness of an occuring attack, its source, target and identify the attack type.
-
-### 8. Security-tool experimentation
+### 7. Security-tool experimentation
 
 Using different command codes to filter and analyze packets and protocoles with Wireshark is a practical way to experiment and master security tools.
 
-### 9. Security mindset
+### 8. Security mindset
 
-A security mindset in cybersecurity is a proactive, analytical way of thinking. I demonstrated that mindset throughout this project by using curiosity and setting up a proper strategy to analyze traffic, identify potential activities and establish their effectiveness.
+A security mindset in cybersecurity is a proactive, analytical way of thinking. I demonstrated that mindset throughout this project by using curiosity and setting up a proper strategy to analyze traffic, identify unsecure activities and establish their effectiveness.
 
-### 10. Documentation
+### 9. Documentation
 
 I documented commands / codes, screenshots, tasks and solutions. That is an important part of a professional cybersecurity project.
 
