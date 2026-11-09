@@ -107,194 +107,131 @@ I signed in with the username "Student" and password "networkwalks", launched Wi
 
 ## Task 2. The protocol
 
-Establishing a TCP connection typically takes place in three steps, the **three-way handshake**.
+We displayed the protocol hierarchy by doing Statistics -› Protocol Hierarchy.
 
-TCP Three-Way Handshake
+The FTP protocol shows the most intensive activities : **31,7 % of packets (117 packets) and 15,5 % of Bytes**.
 
-1. SYN
-Connection initiation
-The client requests the establishment of a connection.
+---
 
-2. SYN + ACK
-The server acknowledges receipt and accepts the request.
+![](/wireshark-lab7/protocol-hierarchy.png)
 
-3. ACK
-The client confirms. The connection is established.
+**The protocol on which occured many failed sign-ins is `FTP`.**
 
-The the first two types of packets: SYN and SYN-ACK are the ones that start a TCP connection at the client and the server sides.
+---
 
-The filter **`tcp.flags.syn == 1`** helps display them. Their number is read from the status bar : **`73`** packets.
+## Task 3. The target 
 
-To display the packets that start a TCP connection :
+We displayed all the FTP request packets and checked their destination IP address.
+
+To display all FTP requests :
 
 ````
-tcp.flags.syn == 1
+ftp.request
 ````
 
 ---
 
-![](wireshark-lab3/tcp-connexion-start.png)
+![](/wireshark-lab7/ftp-requests.png)
 
-**The packets that start a TCP connection are `73` packets.**
-
----
-
-## Task 3. Find the attacker
-
-We remark that one IP address sends a long block of packets, one after another. We got that IP addrerss suspected and deep our investigation about it.
-
-We displayed the SYN requests from the suspected IP address `192.168.10.66` and compared their number to the total number of the SYN requests.
-
-To display all SYN requests :
-
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 0
-````
-
-To display SYN requests from the IP address `192.168.10.66` :
-
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
-````
-
-| Indicator          |	Number |
-|------------------------|-----|
-|Total SYN requests      |	55 |
-| From 192.168.10.66	    | 40 |
-|From other IP addresses |	15 |
-
-**The share of SYN requests from 192.168.10.66 is `72.7 %`** (40 out of 55 requests). 
-
----
-
-![](wireshark-lab3/attack-details.png)
-
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address 192.168.10.20 on different ports.
-
-**The attacker's IP address is `192.168.10.66`.**
-
----
-
-## Task 4. Find the target
-
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
+All the FTP requests are from 192.168.10.66 and target the same IP address 192.168.10.20.
 
 **The target's IP address is `192.168.10.20`.**
 
 ---
 
-## Task 5. Source port
+## Task 4. The attacker
 
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
+All the FTP requests are from **192.168.10.66** and target the same IP address 192.168.10.20.
 
-**The port number that is the same in every packet is `52311`.**
-
----
-
-## Task 6. Ports probed 
-
-All the 40 SYN requests from 192.168.10.66:52311 targeted 192.168.10.20 on distinct ports.
-
-**The attacker tried `40` different ports on the target.**
+**The attacker's IP address is `192.168.10.66`.**
 
 ---
 
-## Task 7. Open ports
+## Task 5. The username
 
-An open port answers with a SYN, ACK packet.
+**The username is `admin`.**
 
-To display open ports on the target 192.168.10.20 : 
+---
+
+## Task 6. FTP reply code for “Login incorrect”
+
+We displayed all the FTP response packets and checked the code for "Login incorrect".
+
+To display all FTP response packets :
 
 ````
-tcp.flags.syn == 1 && tcp.flags.ack == 1 && ip.src == 192.168.10.20
+ftp.response
 ````
 
 ---
 
-![](wireshark-lab3/open-ports.png)
+![](/wireshark-lab7/ftp-response.png)
 
-We observe from the "Info" column that the open ports are 22, 80 and 443.
-
-**The expected answer is : `22, 80, 443`.**
+**The code for "Login incorrect" is `530`.**
 
 ---
 
-## Task 8. Reply for closed ports
+## Task 7. The number of failed logins
 
-**A closed port answers with a `RST, ACK` packet.**
+We displayed only failed login packets. 
 
----
-
-## Task 9. Closed ports
-
-A closed port answers with a `RST, ACK` packet.
-
-To display closed ports on the target 192.168.10.20 : 
+To display failed login packets : 
 
 ````
-ip.src == 192.168.10.20 && tcp.flags.reset == 1 && tcp.flags.ack == 1
+ftp.response.code == 530
 ````
 
 ---
 
-![](wireshark-lab3/rst-ack.png)
+![](/wireshark-lab7/failed-number.png)
 
-**We can read from that status bar that `37` ports are closed.**
+We observe from the status bar that their number is **24**.
 
-*40 ports were tried and 3 are open, so 37 ports are closed.*
+**The number of failed logins is `24`.**
+
+---
+
+## Task 8. FTP reply code for a successful login
+
+We displayed all the FTP response packets and checked the code for "Login successful".
+
+To display all FTP response packets :
+
+````
+ftp.response
+````
+
+---
+
+![](/wireshark-lab7/success-code.png)
+
+**The code for "Login successful" is `230`.**
+
+---
+
+## Task 9. The password that was successful
+
+The successful login packet is packet n° 284. The packet just before is n° 283 and it shows the used password.
+
+To display ftp packets : 
+
+````
+ftp
+````
+
+---
+
+![](/wireshark-lab7/success-password.png)
+
+**The successful password is `Sunshine99`.**
 
 ---
 
 ## Task 10. Attack type
 
-In a typical TCP SYN scan, the behavior is generally as follow :
+We observed an attack where many login attempts on one target failed until one login attempt was successful. The attacker tried different passwords.
 
-1. The attacker sends a SYN packet.
-
-2. The target responds with a SYN-ACK if the port is open.
-
-3. The initiator sends an RST packet to abort the connection without completing the three-way handshake.
-
-If the port is closed, the target responds with an RST-ACK, which terminates the connection.
-
-We examined the attacker's behavior following the three SYN-ACK responses from the target on ports 22, 80, and 443.
-
-To display the RST packets sent by the attacker to the target :
-
-````
-ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
-````
-
----
-
-![](wireshark-lab3/source-rst.png)
-
-The attacker sent RST packets to the target and interrupted the connexions on open ports.
-
-**Identifying the typee of Attack**
-
-Analysis of the TCP packets captured using Wireshark identifies the IP address `192.168.10.66` as the source of intensive network  activity targeting the machine at `192.168.10.20`.
-
-Specifically, 40 SYN packets were sent from the only port 52311 of `192.168.10.66` to 40 distinct ports of `192.168.10.20` at regular intervals of 12.5 milliseconds. The target machine responded with SYN-ACK packets on ports 22, 80, and 443, indicating that these ports were open. The source machine subsequently sent RST packets, terminating the attempts to establish TCP connections.
-
-This behavior is characteristic of a **TCP port scan** known as a "SYN scan" or "TCP half-open scan".
-
-
-| Element | Result |
-|----------|---------|
-| Attacker | 192.168.10.66 |
-| Target | 192.168.10.20 |
-| Identified technique | TCP SYN Scan |
-| Regular interval | 12.5 ms |
-| Number of SYN packets from .66 | 40 |
-| Frequency (packets/second) | 80 |
-| Identified open ports | 22, 80, 443 |
-| Target responses | SYN-ACK |
-| Attacker final behavior | RST |
-
-**Conclusion:** 
-
-**The attack type is a `Port scan`.** The IP address `192.168.10.66` is identified as the source of the port scan, while `192.168.10.20` is the target machine. This activity (such as nmap -sS) is an active network reconnaissance and mapping technique categorized under **`MITRE ATT&CK T1595`** (Active Scanning).
+**The attack type is `Brute Force`.**
 
 ---
 
