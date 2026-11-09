@@ -26,7 +26,7 @@
 
 ## 📌 Project Overview
 
-This is the fifth part (wireshark-lab4) of a Security Operations Center (SOC) project subdivided in 6 wireshark-lab activities. 
+This is the fifth part (wireshark-lab7) of a Security Operations Center (SOC) project subdivided in 6 wireshark-lab activities. 
 
 Links to the 6 wireshark-lab activities :
 
