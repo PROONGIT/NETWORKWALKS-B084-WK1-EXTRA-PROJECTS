@@ -197,7 +197,7 @@ The temporary password is given in the chat.
 
 # 💡 What I practiced
 
-Through this project, I identified a suspicious activity in the network traffic, investigated to detect the attacker's IP address, the target's IP address, established a table of observations and facts that confirm the effectiveness of the attack  and identified the attack type and its operational technique.
+Through this project, I identified an unsecure chat activity in the network traffic, rebuilt the conversation and get the exchanged messages, including credentials and wi-fi password.
 
 I demonstrated Security Operations Center (SOC) Analysis skills.
 
