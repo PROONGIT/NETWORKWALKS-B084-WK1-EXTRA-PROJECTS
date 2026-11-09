@@ -93,7 +93,7 @@ All the 6 labs are based on this topology diagram.
 
 ## Scenario
 
-You are a SOC analyst. One of the pages on the company intranet has a hidden note inside. Find the page and the hidden data.
+A staff member browsed the company intranet. An admin thinks someone left a secret inside one of the web pages. Capture the traffic and use Follow TCP Stream to find the hidden text.
 
 ---
 
