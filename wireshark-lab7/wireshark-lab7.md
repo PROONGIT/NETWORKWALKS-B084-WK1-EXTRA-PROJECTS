@@ -93,20 +93,19 @@ All the 6 labs are based on this topology diagram.
 
 ## Scenario
 
-You are a SOC analyst. A staff member has reported unusual traffic to your company’s web server. Capture the
-packets and analyze them in Wireshark. Find out what type of attack this is and what the attacker’s IP address is.
+ The FTP server owner reports many failed sign-ins in the last minutes. Capture the traffic, find who is guessing passwords and whether the attacker got in.
 
 ---
 
 ## Task 1. Capture the traffic
 
-I signed in with the username "Student" and password "networkwalks", launched Wireshark from the desktop, then double-click the WiFi interface, traffic packets are captured. The status bar shows Packets: 309.
+I signed in with the username "Student" and password "networkwalks", launched Wireshark from the desktop, then double-click the WiFi interface, traffic packets are captured. The status bar shows Packets: 369.
 
-**Wireshark captured `309` packets.**
+**Wireshark captured `369` packets.**
 
 ---
 
-## Task 2. Show only  the packets that start a TCP connection (only SYN packets)
+## Task 2. The protocol
 
 Establishing a TCP connection typically takes place in three steps, the **three-way handshake**.
 
