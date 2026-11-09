@@ -93,209 +93,134 @@ All the 6 labs are based on this topology diagram.
 
 ## Scenario
 
-You are a SOC analyst. A staff member has reported unusual traffic to your company’s web server. Capture the
-packets and analyze them in Wireshark. Find out what type of attack this is and what the attacker’s IP address is.
+A phone call was made through the company VoIP system. Capture the traffic, find the call and play it back to learn what was said.
 
 ---
 
 ## Task 1. Capture the traffic
 
-I signed in with the username "Student" and password "networkwalks", launched Wireshark from the desktop, then double-click the WiFi interface, traffic packets are captured. The status bar shows Packets: 309.
+I signed in with the username "Student" and password "networkwalks", launched Wireshark from the desktop, then double-click the WiFi interface, traffic packets are captured. The status bar shows Packets: 1051.
 
-**Wireshark captured `309` packets.**
-
----
-
-## Task 2. Show only  the packets that start a TCP connection (only SYN packets)
-
-Establishing a TCP connection typically takes place in three steps, the **three-way handshake**.
-
-TCP Three-Way Handshake
-
-1. SYN
-Connection initiation
-The client requests the establishment of a connection.
-
-2. SYN + ACK
-The server acknowledges receipt and accepts the request.
-
-3. ACK
-The client confirms. The connection is established.
-
-The the first two types of packets: SYN and SYN-ACK are the ones that start a TCP connection at the client and the server sides.
-
-The filter **`tcp.flags.syn == 1`** helps display them. Their number is read from the status bar : **`73`** packets.
-
-To display the packets that start a TCP connection :
-
-````
-tcp.flags.syn == 1
-````
+**Wireshark captured `1051` packets.**
 
 ---
 
-![](/wireshark-lab3/tcp-connexion-start.png)
+## Task 2. Call setup protocol
 
-**The packets that start a TCP connection are `73` packets.**
+**Statistic -> Protocol Hierarchy** shows the protocols used by packets and their statistical details.
 
 ---
 
-## Task 3. Find the attacker
+![](/wireshark-lab8/protocol-hierarchy2.png)
 
-We remark that one IP address sends a long block of packets, one after another. We got that IP addrerss suspected and deep our investigation about it.
+---
 
-We displayed the SYN requests from the suspected IP address `192.168.10.66` and compared their number to the total number of the SYN requests.
+INVITE, Ringing (180), and OK (200) are SIP signaling messages. In the protocol hierarchy, SIP accounts for 7 packets (0.7%), which corresponds to a typical, brief signaling exchange: INVITE, 100 Trying, 180 Ringing, 200 OK, ACK, followed by a BYE and its corresponding 200 OK at the end of the call.
 
-To display all SYN requests :
+The audio for the conversation is then transmitted via RTP (Real-Time Transport Protocol), accounting for 804 packets—representing 76.5% of the total packets and 88.7% of the total bytes. SIP does not carry the voice data itself; it is used solely for negotiating and controlling the call.
 
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 0
-````
+Both of these protocols run over UDP, which accounts for 81.5% of the packets.
 
-To display SYN requests from the IP address `192.168.10.66` :
+To confirm that the **SIP** protocol set up the call, we filtered the packets with **`sip`**.
 
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 0 && ip.src == 192.168.10.66
+---
+
+![](/wireshark-lab8/header.png)
+
+The packet n° 51 shows in the "Info" column **REQUEST: INVITE** with the protocol **SIP**.
+
+**The protocol that set up the call is `SIP`.**
+
+---
+
+## Task 3. The protocol that carried the voice
+
+The protocol hierarchy showed that the RTP (Real-Time Transport Protocol) accounts for 804 packets — representing 76.5% of the total packets and 88.7% of the total bytes.
+
+**The protocol that carried the voice is `RTP`**. 
+
+---
+
+## Task 4. Caller extension number
+
+The packet that initiated the call shows details about the caller extension. We filtered the display using **`sip`**.
+
+---
+
+![](/wireshark-lab8/header.png)
+
+The packet n° 51 shows in the "Info" column **REQUEST: INVITE**. We read the caller extension number in the packet's details line **Message Header**.
+
+````text
+From: "Ali Raza" <sip:101@192.168.10.45>
 ````
 
-| Indicator          |	Number |
-|------------------------|-----|
-|Total SYN requests      |	55 |
-| From 192.168.10.66	    | 40 |
-|From other IP addresses |	15 |
-
-**The share of SYN requests from 192.168.10.66 is `72.7 %`** (40 out of 55 requests). 
+**The caller extension number is `101`.**
 
 ---
 
-![](wireshark-lab3/attack-details.png)
+## Task 5. Caller name
 
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address 192.168.10.20 on different ports.
-
-**The attacker's IP address is `192.168.10.66`.**
+**The caller name is `Ali Raza`.**
 
 ---
 
-## Task 4. Find the target
+## Task 6. The codec
 
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
+The voice is carried with the protocol **RTP**. So we filtered the display with **`rtp`** and checked one RTP packet's details.
 
-**The target's IP address is `192.168.10.20`.**
-
----
-
-## Task 5. Source port
-
-All the 40 SYN requests are from 192.168.10.66:52311 and target the same IP address **192.168.10.20** on different ports.
-
-**The port number that is the same in every packet is `52311`.**
+The **Payload type** line shows the codec.
 
 ---
 
-## Task 6. Ports probed 
+![](/wireshark-lab8/codec.png)
 
-All the 40 SYN requests from 192.168.10.66:52311 targeted 192.168.10.20 on distinct ports.
-
-**The attacker tried `40` different ports on the target.**
+**The codec is `PCMU`.**
 
 ---
 
-## Task 7. Open ports
+## Task 7. Who answered the call
 
-An open port answers with a SYN, ACK packet.
+We did **Telephony -> VoIP**, selected one stream and clicked **Play streams**. 
 
-To display open ports on the target 192.168.10.20 : 
+We played the call and heared :
 
-````
-tcp.flags.syn == 1 && tcp.flags.ack == 1 && ip.src == 192.168.10.20
+````text
+- “Good morning, Payments desk. Sara speaking.”
+- “Hello Sara. This is Ali Raza. I want to pay my invoice by card.”
 ````
 
----
-
-![](wireshark-lab3/open-ports.png)
-
-We observe from the "Info" column that the open ports are 22, 80 and 443.
-
-**The expected answer is : `22, 80, 443`.**
+We know that "Ali Raza" is the caller and He is speaking to **Sara**. 
 
 ---
 
-## Task 8. Reply for closed ports
+![](/wireshark-lab8/call-playback.png)
 
-**A closed port answers with a `RST, ACK` packet.**
-
----
-
-## Task 9. Closed ports
-
-A closed port answers with a `RST, ACK` packet.
-
-To display closed ports on the target 192.168.10.20 : 
-
-````
-ip.src == 192.168.10.20 && tcp.flags.reset == 1 && tcp.flags.ack == 1
-````
+**The person who answered the call is : `Sara`.**
 
 ---
 
-![](wireshark-lab3/rst-ack.png)
+## Task 8. The last 4 digits
 
-**We can read from that status bar that `37` ports are closed.**
+We played the entire call and heared the card number details.
 
-*40 ports were tried and 3 are open, so 37 ports are closed.*
-
----
-
-## Task 10. Attack type
-
-In a typical TCP SYN scan, the behavior is generally as follow :
-
-1. The attacker sends a SYN packet.
-
-2. The target responds with a SYN-ACK if the port is open.
-
-3. The initiator sends an RST packet to abort the connection without completing the three-way handshake.
-
-If the port is closed, the target responds with an RST-ACK, which terminates the connection.
-
-We examined the attacker's behavior following the three SYN-ACK responses from the target on ports 22, 80, and 443.
-
-To display the RST packets sent by the attacker to the target :
-
-````
-ip.src == 192.168.10.66 && ip.dst == 192.168.10.20 && tcp.flags.reset == 1
-````
+**The last 4 digits of the card number are `2394`.**
 
 ---
 
-![](wireshark-lab3/source-rst.png)
+## Task 9. The expiry date
 
-The attacker sent RST packets to the target and interrupted the connexions on open ports.
+**The expiry date is `09/28`.**
 
-**Identifying the typee of Attack**
+---
 
-Analysis of the TCP packets captured using Wireshark identifies the IP address `192.168.10.66` as the source of intensive network  activity targeting the machine at `192.168.10.20`.
+## Task 10. Fix to avoid call scam
 
-Specifically, 40 SYN packets were sent from the only port 52311 of `192.168.10.66` to 40 distinct ports of `192.168.10.20` at regular intervals of 12.5 milliseconds. The target machine responded with SYN-ACK packets on ports 22, 80, and 443, indicating that these ports were open. The source machine subsequently sent RST packets, terminating the attempts to establish TCP connections.
+To stop people listening to the call, the company should use encryption.
 
-This behavior is characteristic of a **TCP port scan** known as a "SYN scan" or "TCP half-open scan".
+SRTP encrypts voice packets
 
-
-| Element | Result |
-|----------|---------|
-| Attacker | 192.168.10.66 |
-| Target | 192.168.10.20 |
-| Identified technique | TCP SYN Scan |
-| Regular interval | 12.5 ms |
-| Number of SYN packets from .66 | 40 |
-| Frequency (packets/second) | 80 |
-| Identified open ports | 22, 80, 443 |
-| Target responses | SYN-ACK |
-| Attacker final behavior | RST |
-
-**Conclusion:** 
-
-**The attack type is a `Port scan`.** The IP address `192.168.10.66` is identified as the source of the port scan, while `192.168.10.20` is the target machine. This activity (such as nmap -sS) is an active network reconnaissance and mapping technique categorized under **`MITRE ATT&CK T1595`** (Active Scanning).
+**The company should `Encrypt the call (SRTP)`.**
 
 ---
 
