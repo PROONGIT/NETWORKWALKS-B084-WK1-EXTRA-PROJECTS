@@ -342,7 +342,7 @@ Using different command codes to filter and analyze packets and protocoles with 
 
 ### 9. Security mindset
 
-A security mindset in cybersecurity is a proactive, analytical way of thinking. I demonstrated that mindset throughout this project by using curiosity and setting up a proper strategy to analyze traffic, identify potential activities and establish their effectiveness.
+A security mindset in cybersecurity is a proactive, analytical way of thinking. I demonstrated that mindset throughout this project by using curiosity and setting up a proper strategy to analyze traffic, identify suspicious activities and establish their effectiveness.
 
 ### 10. Documentation
 
