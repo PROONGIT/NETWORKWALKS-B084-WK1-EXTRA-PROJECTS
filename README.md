@@ -135,7 +135,7 @@ The intrusion of the attacker in the network and the port scan activity, the uns
 
 ### 8. Critical and Analytical thinking
 
-I demonstrated Critical and Analytical thinking by putting together many observations and details to build a strong argumentation that clearly establish the effectiveness of an occuring attack, its source, target and identify the attack type.
+I demonstrated Critical and Analytical thinking by putting together many observations and details to build a strong argumentation that clearly establish the effectiveness of attacks, their sources, targets and identify the attacks types.
 
 ### 9. Security-tool experimentation
 
@@ -143,7 +143,7 @@ Using different command codes to filter and analyze packets and protocoles with 
 
 ### 10. Security mindset
 
-A security mindset in cybersecurity is a proactive, analytical way of thinking. I demonstrated that mindset throughout this project by using curiosity and setting up a proper strategy to analyze traffic, identify potential activities and establish their effectiveness.
+A security mindset in cybersecurity is a proactive, analytical way of thinking. I demonstrated that mindset throughout this project by using curiosity and setting up a proper strategy to analyze traffic, identify suspicious and malicious activities and establish their effectiveness. I proposed solutions to fix and prevent the security issues.
 
 ### 11. Documentation
 
