@@ -48,9 +48,9 @@ We will put into action skills such as Network analysis, Packet inspection, Prot
 
 The main objectives of this project are to:
 
-- To identify the Attacker's IP
+- Identify the Attacker's IP
 - Follow TCP Stream
-- Rebuid a conversation and read what was sent
+- Rebuild a conversation and read what was sent
 - Find the hidden data
 - Find usernames and passwords sent in clear text over HTTP
 - Spot the repeated login attempts and find who is guessing passwords (Brut Force Attacker)
