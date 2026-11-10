@@ -260,7 +260,7 @@ I analyzed the network traffic, detected malicious activities and get critical d
 
 ### 5. Intrusion Detection/Prevention (IDS/IPS)
 
-I detected the intrusionn of the attacker in the network, the source address and the nature of the attack. Based on those elements, I can respond to that incident by changing the login credentials, blocking the attacker's IP address and closing all ports that are not in service. I can also implement other security measures to prevent future intrusions.
+I detected the intrusion of the attacker in the network, the source address and the nature of the attack. Based on those elements, I can respond to that incident by changing the login credentials, blocking the attacker's IP address and closing all ports that are not in service. I can also implement other security measures to prevent future intrusions.
 
 ### 6. Digital Forensics
 
