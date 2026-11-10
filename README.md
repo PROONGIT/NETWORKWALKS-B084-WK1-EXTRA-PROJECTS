@@ -48,9 +48,9 @@ We will put into action skills such as Network analysis, Packet inspection, Prot
 
 The main objectives of this project are to:
 
-- To identify the Attacker's IP
+- Identify the Attacker's IP
 - Follow TCP Stream
-- Rebuid a conversation and read what was sent
+- Rebuild a conversation and read what was sent
 - Find the hidden data
 - Find usernames and passwords sent in clear text over HTTP
 - Spot the repeated login attempts and find who is guessing passwords (Brut Force Attacker)
@@ -89,8 +89,9 @@ All the 6 labs are based on this topology diagram.
 
 ---
 
-# 🎬 Extra Project Short Video
+# 🎬 Extra Projects Short Video
 
+A short video on my SOC activities.
 
 https://github.com/user-attachments/assets/95ca40a0-8fd3-4c75-b329-68a18fa75611
 
@@ -98,7 +99,7 @@ https://github.com/user-attachments/assets/95ca40a0-8fd3-4c75-b329-68a18fa75611
 
 # 💡 What I practiced
 
-Through this project, I identified a suspicious activity in the network traffic, investigated to detect the attacker's IP address, the target's IP address, established a table of observations and facts that confirm the effectiveness of the attack and identified the attack type and its operational technique.
+Through this project, I identified suspicious activities in the network traffic, investigated to detect the attacker's IP address, the target's IP address, established a table of observations and facts that confirm the effectiveness of the attack and identified the attack type and its operational technique. I rebuilt the conversation and get the exchanged messages, including credentials and wi-fi password. I found critical hidden data, including a backup server's IP address, password and a downloaded report file. I investigated captured Voice call packets, played back the call to get critical data such as bank card number. I also identified the scammer of the VoIP call. I provided solutions to fix the security issues.
 
 I demonstrated Security Operations Center (SOC) Analysis skills.
 
@@ -110,37 +111,41 @@ Using Wireshark to capture and analyze network packets helps monitor the network
 
 ### 2. Wireshark tools
 
-I have demonstrated my ability to proficiently use Wireshark tools for **network analysis**, including packet capture and display filtering using the appropriate codes and syntax.
+I have demonstrated my ability to proficiently use Wireshark tools for **network analysis**, including packet capture, display filtering using the appropriate codes and syntax, TCP Stream following, rebuilding a conversation and read what was sent, finding critical hidden data such as a backup server's IP address, password and a downloaded report file, and VoIP calls playing back.
 
 ### 3. Packet inspection and analysis
 
-I inspected and analyzed packets and detected traffic anomalies. I also practiced **Protocol analysis**, especialy the TCP **Three-Way Handshake**.
+I inspected and analyzed packets and detected traffic anomalies. I practiced **Packet analysis**, including **TCP Stream** following. I also practiced **Protocol analysis**, especialy the **TCP** (***Three-Way Handshake***), **SIP** and **RTP** protocols.
 
-### 4. Intrusion Detection/Prevention (IDS/IPS)
+### 4. Network sniffing
 
-I detected the intrusionn of the attacker in the network, the source address and the nature of the attack. Based on those elements, I can respond to that incident by blocking the attacker's IP address and closing all ports that are not in service. I can also implement measures to prevent future intrusions.
+I analyzed the network traffic, detected an unsecure chat and get in plain text credentials and a wi-fi password. I detected unsecure web activities and get a server's IP address, password and the content of a downloaded text file. I detected unsecure VoIP call activities and get critical data such as caller name, responder name and bank card details.
 
-### 5. Digital Forensics
+### 5. Intrusion Detection/Prevention (IDS/IPS)
 
-I established the procedure and the technique of the attack. I identified the source and the type of the attack. So I can respond to it and implement prevention measures.
+I detected the intrusion of the attacker in the network, the source address and the nature of the attack. Based on those elements, I can respond to that incident by changing the login credentials, blocking the attacker's IP address and closing all ports that are not in service. I can also implement measures to prevent future intrusions.
 
-### 6. Cyber Threat Intelligence 
+### 6. Digital Forensics
 
-The intrusion of the attacker in the network and the port scan activity constitute threats for the network security. By analyzing the network and detecting earlier the port scan activity, I demonstrated Cyber Threat Intelligence skills, including Threat Hunting, Threat Detection and Threat Attribution.
+I established the procedure and the technique of attacks. I identified the source and the type of the attacks. So I can respond to them and implement prevention measures.
 
-### 7. Critical and Analytical thinking
+### 7. Cyber Threat Intelligence 
+
+The intrusion of the attacker in the network and the port scan activity, the unsecured chat activities, the unsecured web activities, the brute force attack activities and the unsecured VoIP call activities constitute threats for the network security. By analyzing the network and detecting earlier those suspicious and/or malicious activities, I demonstrated Cyber Threat Intelligence skills, including Threat Hunting, Threat Detection and Threat Attribution.
+
+### 8. Critical and Analytical thinking
 
 I demonstrated Critical and Analytical thinking by putting together many observations and details to build a strong argumentation that clearly establish the effectiveness of an occuring attack, its source, target and identify the attack type.
 
-### 8. Security-tool experimentation
+### 9. Security-tool experimentation
 
 Using different command codes to filter and analyze packets and protocoles with Wireshark is a practical way to experiment and master security tools.
 
-### 9. Security mindset
+### 10. Security mindset
 
 A security mindset in cybersecurity is a proactive, analytical way of thinking. I demonstrated that mindset throughout this project by using curiosity and setting up a proper strategy to analyze traffic, identify potential activities and establish their effectiveness.
 
-### 10. Documentation
+### 11. Documentation
 
 I documented commands / codes, screenshots, tasks and solutions. That is an important part of a professional cybersecurity project.
 
